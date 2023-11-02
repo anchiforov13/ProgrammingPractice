@@ -1,7 +1,7 @@
-phoneNumber,name,surname,salary,department
-0995282628,Mykola,Anchiforov,100000,IT
-0993738274,Max,Verstappen,500000,Sales
-0953682865,Barack,Obama,1000000,IT
-0983684268,Donald,Trump,999999,Sales
-0956832895,Joe,Biden,123456,IT
-0566285193,Taras,Shevchenko,50000,HR
+name,surname,phoneNumber,salary,department,duty,jobTitle
+Barack,Obama,0953682865,1000000,IT,fullstack,
+Donald,Trump,0983684268,999999,Sales,,salesperson
+Joe,Biden,0956832895,123456,IT,frontend,
+Max,Verstappen,0993738274,500000,Sales,,manager
+Mykola,Anchiforov,0995282628,100000,IT,backend,
+Taras,Shevchenko,0566285193,50000,HR,,recruiter
