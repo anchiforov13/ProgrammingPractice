@@ -1,6 +1,28 @@
 from worker import Worker, Delivery, Non_Delivery
 import csv
 
+def search_decoration(func):
+    def wrapper(self, key, value):
+        print(f"Search results for '{value}' in parameter '{key}' added to the file.")
+        result = func(self, key, value)
+        with open("search_result.txt", 'w') as srchfile:
+            srchfile.write("Search results:\n")
+            for item in result:
+                srchfile.write(str(item)+'\n')
+        return result
+    return wrapper
+
+def sort_decoration(func):
+    def wrapper(self, param):
+        print(f"Database sorted by '{param}' added to the file")
+        result = func(self, param)
+        with open('sort_result.txt', 'w') as sortfile:
+            sortfile.write(f"Sorted by '{param}':\n")
+            for item in result:
+                sortfile.write(str(item)+'\n')
+        return result
+    return wrapper
+
 class WorkerDatabase:
     def __init__(self, filename):
         self.filename = filename
@@ -63,7 +85,8 @@ class WorkerDatabase:
             a = Worker(name, surname, phoneNumber, salary, department)
         self.add_worker_to_csv(a)
         return a
-
+    
+    @search_decoration
     def search_workers(self, key, value):
         valid_workers = []
         try:
@@ -71,15 +94,32 @@ class WorkerDatabase:
                 reader = csv.DictReader(csvfile, delimiter=',')
                 for row in reader:
                     if row[key] == value:
-                        worker = Worker(
-                            row.get('name', None),
-                            row.get('surname', None),
-                            row.get('phoneNumber', None),
-                            row.get('salary', None),
-                            row.get('department', None),
-                            row.get('duty', None),
-                            row.get('jobTitle', None)
-                        )
+                        if row.get('duty'):
+                            worker = Delivery(
+                                row.get('name', None),
+                                row.get('surname', None),
+                                row.get('phoneNumber', None),
+                                row.get('salary', None),
+                                row.get('department', None),
+                                row['duty']
+                            )
+                        elif row.get('jobTitle'):
+                            worker = Non_Delivery(
+                                row.get('name', None),
+                                row.get('surname', None),
+                                row.get('phoneNumber', None),
+                                row.get('salary', None),
+                                row.get('department', None),
+                                row['jobTitle']
+                            )
+                        else:
+                            worker = Worker(
+                                row.get('name', None),
+                                row.get('surname', None),
+                                row.get('phoneNumber', None),
+                                row.get('salary', None),
+                                row.get('department', None)
+                            )
                         valid_workers.append(worker)
         except FileNotFoundError:
             print(f"File '{self.filename}' not found.")
@@ -164,8 +204,8 @@ class WorkerDatabase:
         except FileNotFoundError:
             print(f"File '{self.filename}' not found.")
 
+    @sort_decoration
     def sort_by_param(self, param):
         self.database.sort(key=lambda worker: getattr(worker, param))
         self.update_csv_file()
-
-        print(f"Database sorted by parameter '{param}'.")
+        return self.database
