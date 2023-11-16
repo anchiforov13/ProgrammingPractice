@@ -1,8 +1,14 @@
 import random
 
+def generator(value=0):
+    while True:
+        value += 1
+        yield value
+
 class Worker:
+    __id_generator = generator()
     def __init__(self, name=None, surname=None, phoneNumber=None, salary=None, department=None):
-        self.__id = random.randint(10000, 99999)
+        self.__id = next(Worker.__id_generator)
         self.name = name
         self.surname = surname
         self.phoneNumber = phoneNumber
@@ -10,7 +16,7 @@ class Worker:
         self.department = department
 
     def __str__(self):
-        return f"ID: {self.worker_id} ,Name: {self.name}, Surname: {self.surname}, Phone Number: {self.phoneNumber}, Salary: {self.salary}, Department: {self.department}"
+        return f"ID: {self.worker_id}, Name: {self.name}, Surname: {self.surname}, Phone Number: {self.phoneNumber}, Salary: {self.salary}, Department: {self.department}"
 
     @property
     def worker_id(self):

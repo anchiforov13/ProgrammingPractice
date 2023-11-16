@@ -94,6 +94,7 @@ class WorkerDatabase:
                 reader = csv.DictReader(csvfile, delimiter=',')
                 for row in reader:
                     if row[key] == value:
+                        existing_worker = next((w for w in self.database if w.name == row['name'] and w.surname == row['surname']), None)
                         if row.get('duty'):
                             worker = Delivery(
                                 row.get('name', None),
@@ -120,6 +121,8 @@ class WorkerDatabase:
                                 row.get('salary', None),
                                 row.get('department', None)
                             )
+                        if existing_worker:
+                            worker.worker_id = existing_worker.worker_id
                         valid_workers.append(worker)
         except FileNotFoundError:
             print(f"File '{self.filename}' not found.")
@@ -206,6 +209,6 @@ class WorkerDatabase:
 
     @sort_decoration
     def sort_by_param(self, param):
-        self.database.sort(key=lambda worker: getattr(worker, param))
+        self.database.sort(key=lambda worker: getattr(worker, param).lower())
         self.update_csv_file()
         return self.database
