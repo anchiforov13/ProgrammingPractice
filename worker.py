@@ -26,6 +26,11 @@ class Worker:
     def worker_id(self, value=None):
         self.__id = value
 
+    def calculate_future_salary(self, months, raise_rate):
+        current_salary = int(self.salary)
+        future_salary = current_salary * (1 + raise_rate) ** months
+        return future_salary
+
 class Delivery(Worker):
     def __init__(self, name, surname, phoneNumber, salary, department, duty):
         super().__init__(name, surname, phoneNumber, salary, department)

@@ -1,5 +1,6 @@
 from worker import Worker, Delivery, Non_Delivery
 import csv
+import matplotlib.pyplot as plt
 
 def search_decoration(func):
     def wrapper(self, key, value):
@@ -27,6 +28,11 @@ class WorkerDatabase:
     def __init__(self, filename):
         self.filename = filename
         self.database = self.read_workers_from_csv()
+        self.raise_values = {
+            "IT" : 0.05,
+            "HR" : 0.005,
+            "Sales" : 0.01
+        }
 
     def __str__(self):
         return '\n'.join(str(worker) for worker in self.database)
@@ -68,6 +74,29 @@ class WorkerDatabase:
             print(f"File '{self.filename}' not found.")
         return workers
 
+    def plot_future_salary_increase(self, worker_id, months_to_project):
+        for worker in self.database:
+            if worker.worker_id == worker_id:
+                department = worker.department
+                raise_rate = self.raise_values.get(department)
+                future_salaries = []
+                for month in range(months_to_project + 1):
+                    future_salary = worker.calculate_future_salary(month, raise_rate)
+                    future_salaries.append(future_salary)
+
+                plt.plot(range(months_to_project + 1), future_salaries, label=f'Worker {worker_id} ({department})')
+                six_month_indices = range(0, months_to_project + 1, 6)
+                plt.scatter(six_month_indices, [future_salaries[i] for i in six_month_indices], color='red', label='6-Month marks')                
+                plt.xlabel('Months')
+                plt.ylabel('Future Salary')
+                plt.title('Future Salary Increase Projection')
+                plt.grid(True)
+                plt.tight_layout()
+                plt.legend()
+                plt.show()
+                break
+        else:
+            print(f"Worker with ID {worker_id} not found.")
 
     def create_worker_from_user_input(self, subclass=None):
         name = input("Name: ")
