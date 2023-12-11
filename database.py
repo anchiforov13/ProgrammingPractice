@@ -122,7 +122,7 @@ class WorkerDatabase:
             with open(self.filename, newline="") as csvfile:
                 reader = csv.DictReader(csvfile, delimiter=',')
                 for row in reader:
-                    if row[key] == value:
+                    if value in row[key]:
                         existing_worker = next((w for w in self.database if w.name == row['name'] and w.surname == row['surname']), None)
                         if row.get('duty'):
                             worker = Delivery(

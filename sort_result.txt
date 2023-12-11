@@ -1,7 +1,9 @@
-Sorted by 'surname':
-ID: 1, Name: Mykola, Surname: Anchiforov, Phone Number: 0995282628, Salary: 100000, Department: IT, Duty: backend
-ID: 2, Name: Joe, Surname: Biden, Phone Number: 0956832895, Salary: 123456, Department: IT, Duty: frontend
-ID: 3, Name: Barack, Surname: Obama, Phone Number: 0953682865, Salary: 1000000, Department: IT, Duty: fullstack
-ID: 4, Name: Taras, Surname: Shevchenko, Phone Number: 0566285193, Salary: 50000, Department: HR, Job Title : recruiter
-ID: 5, Name: Donald, Surname: Trump, Phone Number: 0983684268, Salary: 999999, Department: Sales, Job Title : salesperson
-ID: 6, Name: Max, Surname: Verstappen, Phone Number: 0993738274, Salary: 500000, Department: Sales, Job Title : manager
+Sorted by 'name':
+ID: 3, Name: Barack, Surname: Obama, Phone Number: 0953682865, Salary: 8000, Department: IT, Duty: fullstack
+ID: 5, Name: Donald, Surname: Trump, Phone Number: 0983684268, Salary: 9999, Department: Sales, Job Title : salesperson
+ID: 7, Name: f, Surname: f, Phone Number: f, Salary: f, Department: f, Duty: f
+ID: 8, Name: hugh, Surname: jackman, Phone Number: 0995342289, Salary: 2222, Department: IT, Duty: backend
+ID: 2, Name: Joe, Surname: Biden, Phone Number: 0956832895, Salary: 10000, Department: IT, Duty: frontend
+ID: 6, Name: Max, Surname: Verstappen, Phone Number: 0993738274, Salary: 6000, Department: Sales, Job Title : manager
+ID: 1, Name: Mykola, Surname: Anchiforov, Phone Number: 0995282628, Salary: 15000, Department: IT, Duty: backend
+ID: 4, Name: Taras, Surname: Shevchenko, Phone Number: 0566285193, Salary: 10001, Department: HR, Job Title : recruiter
